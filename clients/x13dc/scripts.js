@@ -32,7 +32,6 @@ var CuSoClients = CuSoClients || {};
     * @author Craig Lucas <clucas@everydayhealthinc.com>
     */
     CuSoClients.X13dcConstructor = function () { };
-
     /**
     * Inheritable methods.
     *
@@ -57,7 +56,6 @@ var CuSoClients = CuSoClients || {};
 	        this.objectInit();
 
         },
-
         /**
         * Set default values.
         * Modified: 06/10/2013
@@ -107,7 +105,6 @@ var CuSoClients = CuSoClients || {};
             init: function () {
                this.physFinder.init();
             },
-			
             /**
              * Object containing physFinder related values/methods.
              * Modified: 06/10/2013
@@ -117,7 +114,7 @@ var CuSoClients = CuSoClients || {};
              * @public
             */
             physFinder: {
-
+			
                 /**
                  * Initialization methods for physFinder module.
                  * Modified: 06/10/2013
@@ -128,15 +125,13 @@ var CuSoClients = CuSoClients || {};
                 */
                 init: function () {
 				
-					// variables
-                   this.$container = $('.x13dc.phys-finder');
-				   this.formHTML = '<p class="submit"><input type="text" maxlength="5" id="zip" name="zip" placeholder="Enter ZIP" class="zip"><a class="find">GO</a><div id="x13dcTracker" />';
-				   this.containerValid = this.$container.length > 0 ? true : false;
-				   this.trackingPixel = '<img src="https://view.atdmt.com/DWC/view/466981172/direct/01/" style="display:none;" />';
-				   
-				   this.bindFormHtml();
-				   this.bindFormSubmit();
-                },
+					// variables				
+					this.$container = $('.x13dc.phys-finder');
+					this.formHTML = '<p class="submit"><input type="text" maxlength="5" id="zip" name="zip" placeholder="Enter ZIP" class="zip"><a class="find">GO</a>';
+					this.containerValid = this.$container.length > 0 ? true : false;
+					this.bindFormHtml();
+					this.bindFormSubmit();
+				},
 				
                 /**
                 * Binds form submit to physFinder module
@@ -146,8 +141,8 @@ var CuSoClients = CuSoClients || {};
                 * @method bindFormSubmit
                 * @author Craig Lucas <clucas@everydayhealthinc.com>
                 * @public
-                */				
-				bindFormHtml: function () {
+                */								
+				bindFormHtml : function () {
 					if (this.containerValid) {
 						this.$container.find('.content').append(this.formHTML);
 					}
@@ -161,35 +156,27 @@ var CuSoClients = CuSoClients || {};
                 * @method bindFormSubmit
                 * @author Craig Lucas <clucas@everydayhealthinc.com>
                 * @public
-                */				
-				bindFormSubmit: function () {
-				   
-				   // variables
+                */								
+				bindFormSubmit : function () {
 					var $c = this.$container,
-						  $zip,
-						   _self = this,
-						   v,
-							isValid = false;
-						 
+					$zip,
+					_self = this,
+					v,
+					isValid = false;
 					if (this.containerValid) {
-						 $zip = $c.find('#zip');
+						$zip = $c.find('#zip');
 						$c.find('.find').bind('click.find', function () {
 							v = $zip.val();
 							isValid = _self.validateZip(v)
-							if (isValid) {
-								$zip.removeClass('error');
-								$c.find('#x13dcTracker').html(_self.trackingPixel);
-								setTimeout(function() {
+								if (isValid) {
+									$zip.removeClass('error');
 									_self.locatePhysician(v);
-								}, 1000);								 
-							}
-							else {
-								$zip.addClass('error');
-							}
+								} else {
+									$zip.addClass('error');
+								}
 						});
-
-					}				
-				},	
+					}
+				},
 				
                 /**
                 * Binds form submit to physFinder module
@@ -200,37 +187,29 @@ var CuSoClients = CuSoClients || {};
 				* @param {string} zip the zip code entered.				
                 * @author Craig Lucas <clucas@everydayhealthinc.com>
                 * @public
-                */				
-				locatePhysician: function (zip) {
-				  var wUrl = 'http://everydayhealth.com';  //'https://www.xiaflex.com/doctor-locator-results.html?action=Map&radius=10&zip='+zip+'&s=ed';
-				  window.open(wUrl, '_blank');
-				},	
-
+                */					
+				locatePhysician : function (zip) {
+					var wUrl = 'https://www.xiaflex.com/doctor-locator-results.html?action=Map&radius=10&zip=' + zip + '&s=ed';
+					window.open(wUrl, '_blank');
+				},
+				
 				/***
-				* validateEmail()
+				* validateZip()
 				*
 				* * Purpose: Validates zipcode and returns true/false<br/>
 				* * lastModified   02/06/2013<br/>
 				* * modifiedBy     gdeane@everydayhealthinc.com<br/>
 				*
-				* @param email string, email address to validate
-				*/
-				validateZip: function (zip) {
-					// regex
+				* @param zip string, zip code to validate
+				*/				
+				validateZip : function (zip) {
 					var reg = /^(?!0{5})(\d{5})(?!-?0{4})(|-\d{4})$/;
-
-					// result
 					return reg.test(zip);
-
 				}
-				
-			}	
-				
-				
-		
+			}
 		}
-    };
-
+	};
+	
     /**
     * Instantiate object.
     *
