@@ -1,0 +1,11 @@
+Seroquel production instructions
+
+	- add HTML content called "s13bipolar dropdown script loader" to TemplateScripts location using "EH - Body Only" template
+	- add HTML content called "s13bipolar select dropdown" to "Content" location using  "EH - Body Only" template
+	- add stylesheet to Additional HeadData field "<link rel="stylesheet" href="http://sc.everydayhealth.com/everydayhealth/solutions/clients/s13bipolar/styles.css" />"
+	
+	<div class="isi">
+		<p>isi paragraph 1 here</p>
+		<p>isi paragraph 2 here</p>
+		For the darker grey just wrap the text inside of the following <strong></strong>
+	</div>
