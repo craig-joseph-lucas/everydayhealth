@@ -127,7 +127,7 @@ var CuSoClients = CuSoClients || {};
 				
 					// variables				
 					this.$container = $('.x13dc.phys-finder');
-					this.formHTML = '<p class="submit"><input type="text" maxlength="5" id="zip" name="zip" placeholder="Enter ZIP" class="zip"><a class="find">GO</a>';
+					this.formHTML = '<p class="submit"><input type="text" maxlength="5" id="zip" name="zip" placeholder="Enter ZIP" class="zip"><a class="find">GO</a><div id="x13dcTracker" />';
 					this.containerValid = this.$container.length > 0 ? true : false;
 					this.bindFormHtml();
 					this.bindFormSubmit();
@@ -162,15 +162,21 @@ var CuSoClients = CuSoClients || {};
 					$zip,
 					_self = this,
 					v,
-					isValid = false;
+					isValid = false,
+					trackingPixel;
 					if (this.containerValid) {
 						$zip = $c.find('#zip');
 						$c.find('.find').bind('click.find', function () {
 							v = $zip.val();
-							isValid = _self.validateZip(v)
+							isValid = _self.validateZip(v);
+							// have to build image here because the image URL needs to always have a unique URL so we cab bust browser caching
+							trackingPixel = '<img src="https://view.atdmt.com/DWC/view/466981172/direct/01/?' + Math.random() * 1000000000000000000 +'" style="display:none;" />';
 								if (isValid) {
 									$zip.removeClass('error');
-									_self.locatePhysician(v);
+									$c.find('#x13dcTracker').append(trackingPixel);
+									setTimeout(function() {
+										_self.locatePhysician(v);
+									}, 1000);		
 								} else {
 									$zip.addClass('error');
 								}
@@ -189,7 +195,7 @@ var CuSoClients = CuSoClients || {};
                 * @public
                 */					
 				locatePhysician : function (zip) {
-					var wUrl = 'https://www.xiaflex.com/doctor-locator-results.html?action=Map&radius=10&zip=' + zip + '&s=ed';
+					var wUrl =  'https://www.xiaflex.com/doctor-locator-results.html?action=Map&radius=10&zip=' + zip + '&s=ed';
 					window.open(wUrl, '_blank');
 				},
 				
